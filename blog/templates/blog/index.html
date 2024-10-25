@@ -1,0 +1,46 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    {% for val in values %}
+        <section class="section">
+            <h2><a href="{% url 'detail' val.id %}">{{ val.subject }}</a></h2>
+            <p>created: <small>{{ val.date|date:"j, M Y"}}</small></p>
+            <p>{{ val.info }}</p>
+            <aside>
+                <details>
+                    <summary>more posts@:</summary>
+                    <p><a href="{% url 'user-posts' val.person.username %}">{{ val.person.username }}</a></p>
+                </details>
+            </aside>
+        </section>
+    {% endfor %}
+
+    {% if is_paginated %}
+        {% if page_obj.has_previous %}
+            <a href="?page=1">first</a>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+        {% if num == page_obj.number %}
+            <a href="?page={{ page_obj.number }}" 
+            style="background-color: #FEFEFA; color: #333;">{{ page_obj.number }}</a>
+        {% elif num > page_obj.number|add:"-3" and num < page_obj.number|add:"3" %}
+            <a href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.paginator.num_pages }}">last</a>
+        {% endif %}
+
+        <div>
+            {% for num in page_obj.paginator.page_range %}
+                {% if num == page_obj.number %}
+                    <a href="?page={{ page_obj.number }}">
+                        &lt;{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}&gt;
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock content %}

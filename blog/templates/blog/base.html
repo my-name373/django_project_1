@@ -1,0 +1,37 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ title }}</title>
+        <link rel="stylesheet" href="{% static 'blog/main.css' %}">
+    </head>
+    <body>
+        <header>
+            <ul>
+                <li><a href="{% url 'home' %}">home</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}">logout</a></li>
+                    <li><a href="{% url 'profile' %}">profile</a></li>
+                    <li><a href="{% url 'create' %}">create</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">login</a></li>
+                    <li><a href="{% url 'register' %}">register</a></li>
+                {% endif %}
+            </ul>
+            {% if user.is_authenticated %}
+                <h1>{{ user.username }}</h1>
+            {% else %}
+                <h1>{{ title }}</h1>
+            {% endif %}
+        </header>
+        {% if messages %}
+            {% for message in messages %}
+                <h4>{{ message }}</h4>
+            {% endfor %}
+        {% endif %}
+        {% block content %}{% endblock content %}
+    </body>
+</html>

@@ -1,0 +1,22 @@
+body {
+    background-color: #333;
+    color: #FEFEFA;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+a:any-link {
+    color: #FEFEFA;
+    text-decoration: none;
+}
+
+a:hover ,a:focus {
+    text-decoration: underline;
+    color: aqua;
+}
+
+.section {
+    border: 1px outset whitesmoke;
+    outline: whitesmoke invert 1px;
+    margin: 2%;
+    padding: 5px;
+}

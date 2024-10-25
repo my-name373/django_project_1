@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Profile Info</legend>
+            <p>email: {{ user.email }}</p>
+            <p>name: {{ user.first_name }} {{ user.last_name }}</p>
+            <figure>
+                <figcaption>Bio: {{ user.profile.bio }}</figcaption>
+                <img src="{{ user.profile.image.url }}" alt="no profile pic"
+                width="{{ user.profile.width }}" height="{{ user.profile.height }}" title="profile">
+            </figure>
+        </fieldset>
+        {{ update_user.as_div }}
+        {{ update_profile.as_div }}
+        <div>
+            <button type="submit">upload</button>
+        </div>
+    </form>
+{% endblock content %}

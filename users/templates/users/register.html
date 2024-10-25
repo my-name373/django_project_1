@@ -1,0 +1,16 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Sign Up</legend>
+            {{ form.as_p }}
+            <div>
+                <button type="submit">submit</button>
+                <button type="reset">reset</button>
+            </div>
+        </fieldset>
+        <p>already have an acc? <a href="{% url 'login' %}">sign in</a></p>
+    </form>
+{% endblock content %}
